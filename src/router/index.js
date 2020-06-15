@@ -2,12 +2,29 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
+import Welcome from '../components/Welcome.vue'
+import Users from '../components/users/Users.vue'
 
 Vue.use(VueRouter)
 
+// 修复Vue router / Element 重复点击导航路由报错解决方法
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   { path: '/login', component: Login, name: 'login' },
-  { path: '/home', component: Home, name: 'home' }
+  {
+    path: '/home',
+    component: Home,
+    name: 'home',
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: Welcome },
+      { path: '/users', component: Users }
+    ]
+  }
 ]
 
 const router = new VueRouter({
