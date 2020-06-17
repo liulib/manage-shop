@@ -54,14 +54,19 @@
               ></el-button>
             </el-tooltip>
             <el-tooltip class="item" effect="dark" content="分配角色" placement="top">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                @click="showRolesDialog(scope.row)"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
       <el-pagination
-        :page-sizes="[1, 10, 20, 100]"
+        :page-sizes="[5, 10, 20, 100]"
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -124,6 +129,23 @@
         <el-button type="primary" @click="_editUserInfo">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="setRolesDialogVisible" width="50%">
+      <!-- 内容主体区域 -->
+      <div>
+        <p>当前用户:{{userInfo.username}}</p>
+        <p>当前角色:{{userInfo.role_name}}</p>
+      </div>
+      <span>分配新角色:</span>
+      <el-select v-model="rolesValue" placeholder="请选择">
+        <el-option v-for="item in rolesData" :key="item.id" :label="item.roleName" :value="item.id"></el-option>
+      </el-select>
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRolesDialogVisible=false">取 消</el-button>
+        <el-button type="primary" @click="setRoles">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -149,7 +171,7 @@ export default {
     }
     return {
       // 用户查询参数
-      queryInfo: { query: '', pagenum: 1, pagesize: 1 },
+      queryInfo: { query: '', pagenum: 1, pagesize: 5 },
       // 用户列表
       userList: [],
       // 总用户数
@@ -181,7 +203,11 @@ export default {
           { validator: checkPhone }
         ]
       },
-      editForm: {}
+      editForm: {},
+      setRolesDialogVisible: false,
+      rolesData: [],
+      userInfo: {},
+      rolesValue: ''
     }
   },
   computed: {},
@@ -334,10 +360,46 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    // 获取角色列表
+    async _getRolesList() {
+      try {
+        const res = await this.$api.rights.getRolesList()
+        if (res.data.meta.status === 200) {
+          this.rolesData = res.data.data
+          console.log(this.rolesData)
+          this.$message.success(res.data.meta.msg)
+        }
+      } catch (error) {
+        this.$message.error(error)
+      }
+    },
+    // 显示分配用户角色对话框
+    showRolesDialog(userInfo) {
+      this.userInfo = userInfo
+      this.setRolesDialogVisible = true
+    },
+    // 设置用户角色
+    async setRoles() {
+      try {
+        const res = await this.$api.users.setUserRoles(this.userInfo.id, {
+          rid: this.rolesValue
+        })
+        if (res.data.meta.status === 200) {
+          this.$message.success(res.data.meta.msg)
+        } else {
+          this.$message.error(res.data.meta.msg)
+        }
+        this._getUserList()
+        this.setRolesDialogVisible = false
+      } catch (error) {
+        this.$message.error(error)
+      }
     }
   },
   created() {
     this._getUserList()
+    this._getRolesList()
   }
 }
 </script>

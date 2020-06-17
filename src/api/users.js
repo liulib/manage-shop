@@ -33,6 +33,10 @@ const users = {
   // 根据userId删除用户信息
   deleteUserById(uId) {
     return axios.delete(`${base.dev}/users/${uId}`)
+  },
+  // 根据userId分配用户角色
+  setUserRoles(uId, params) {
+    return axios.put(`${base.dev}/users/${uId}/role`, params)
   }
 }
 

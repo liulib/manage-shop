@@ -78,7 +78,6 @@ export default {
       try {
         const res = await this.$api.operations.getMenuList()
         this.menuList = res.data.data
-        console.log(res.data.data)
       } catch (error) {
         console.log(error)
       }

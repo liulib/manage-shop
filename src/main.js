@@ -36,7 +36,11 @@ import {
   Pagination,
   Tooltip,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag,
+  Tree,
+  Select,
+  Option
 } from 'element-ui'
 
 Vue.use(Input)
@@ -62,6 +66,10 @@ Vue.use(Input)
   .use(Pagination)
   .use(Tooltip)
   .use(Dialog)
+  .use(Tag)
+  .use(Tree)
+  .use(Select)
+  .use(Option)
 
 Vue.config.productionTip = false
 
