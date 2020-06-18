@@ -10,6 +10,8 @@ import './assets/css/global.css'
 import 'element-ui/lib/theme-chalk/index.css'
 // 导入字体样式
 import './assets/fonts/iconfont.css'
+// 导入第三方插件vue-table-with-tree-grid
+import ZkTable from 'vue-table-with-tree-grid'
 
 import {
   Input,
@@ -40,7 +42,8 @@ import {
   Tag,
   Tree,
   Select,
-  Option
+  Option,
+  Cascader
 } from 'element-ui'
 
 Vue.use(Input)
@@ -70,6 +73,7 @@ Vue.use(Input)
   .use(Tree)
   .use(Select)
   .use(Option)
+  .use(Cascader)
 
 Vue.config.productionTip = false
 
@@ -79,7 +83,8 @@ Vue.prototype.$api = api
 Vue.prototype.$message = Message
 // 挂载confirm到原型上
 Vue.prototype.$confirm = MessageBox.confirm
-
+// 注册tree-table
+Vue.component('tree-table', ZkTable)
 new Vue({
   router,
   store,
