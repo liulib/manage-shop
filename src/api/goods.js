@@ -25,6 +25,33 @@ const goods = {
   // 删除分类数据
   deleteCategories(id, params) {
     return axios.delete(`${base.dev}/categories/${id}`, { data: params })
+  },
+  // 获取参数列表
+  getAttributesById(id, params) {
+    return axios.get(`${base.dev}/categories/${id}/attributes`, {
+      params: params
+    })
+  },
+  // 添加参数
+  addAttributesById(id, params) {
+    return axios.post(`${base.dev}/categories/${id}/attributes`, params)
+  },
+  // 根据 ID 查询单个参数
+  getAttributeById(id, attrId, params) {
+    return axios.get(`${base.dev}/categories/${id}/attributes/${attrId}`, {
+      params: params
+    })
+  },
+  // 根据 ID编辑参数
+  updateAttributeById(id, attrId, params) {
+    return axios.put(
+      `${base.dev}/categories/${id}/attributes/${attrId}`,
+      params
+    )
+  },
+  // 根据 ID删除参数
+  removeAttributeById(id, attrId) {
+    return axios.delete(`${base.dev}/categories/${id}/attributes/${attrId}`)
   }
 }
 

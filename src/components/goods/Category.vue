@@ -85,6 +85,7 @@
           <el-input v-model="addCateForm.cat_name"></el-input>
         </el-form-item>
         <el-form-item label="父级分类" required>
+          <!-- 分类数据的级联选择框 -->
           <el-cascader
             expand-trigger="hover"
             :options="parentCateList"
