@@ -58,7 +58,9 @@ import {
   Step,
   CheckboxGroup,
   Checkbox,
-  Upload
+  Upload,
+  Timeline,
+  TimelineItem
 } from 'element-ui'
 
 Vue.use(Input)
@@ -97,6 +99,8 @@ Vue.use(Input)
   .use(CheckboxGroup)
   .use(Checkbox)
   .use(Upload)
+  .use(Timeline)
+  .use(TimelineItem)
 
 // 挂载全局过滤器
 Vue.filter('moment', function(value, formatString) {

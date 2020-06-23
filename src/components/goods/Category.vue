@@ -102,12 +102,7 @@
       </span>
     </el-dialog>
     <!-- 编辑分类对话框 -->
-    <el-dialog
-      title="编辑分类"
-      :visible.sync="editCateDialogVisible"
-      width="50%"
-      @close="handleEditClose"
-    >
+    <el-dialog title="编辑分类" :visible.sync="editCateDialogVisible" width="50%">
       <!-- 内容主体区域 -->
       <el-form
         :model="editCateForm"
@@ -321,7 +316,6 @@ export default {
       }
       this.editCateDialogVisible = true
     },
-    handleEditClose() {},
     // 删除分类
     _removeCateById(cateId) {
       this.$confirm('是否删除分类?', '删除分类', {

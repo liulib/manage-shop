@@ -1,5 +1,5 @@
-<template class="add-goods-container">
-  <div>
+<template>
+  <div class="add-goods-container">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
