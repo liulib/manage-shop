@@ -30,3 +30,8 @@ body,
 .border-bottom {
   border-bottom: 1px solid #eee;
 }
+
+/* 富文本编辑器高度 */
+.ql-editor {
+  min-height: 350px;
+}

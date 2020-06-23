@@ -12,6 +12,13 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/fonts/iconfont.css'
 // 导入第三方插件vue-table-with-tree-grid
 import ZkTable from 'vue-table-with-tree-grid'
+// 时间处理插件
+import moment from 'moment'
+// 富文本编辑器相关
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
 
 import {
   Input,
@@ -46,7 +53,12 @@ import {
   Cascader,
   Alert,
   Tabs,
-  TabPane
+  TabPane,
+  Steps,
+  Step,
+  CheckboxGroup,
+  Checkbox,
+  Upload
 } from 'element-ui'
 
 Vue.use(Input)
@@ -80,6 +92,18 @@ Vue.use(Input)
   .use(Alert)
   .use(Tabs)
   .use(TabPane)
+  .use(Steps)
+  .use(Step)
+  .use(CheckboxGroup)
+  .use(Checkbox)
+  .use(Upload)
+
+// 挂载全局过滤器
+Vue.filter('moment', function(value, formatString) {
+  formatString = formatString || 'YYYY-MM-DD HH:mm'
+  // return moment(value).format(formatString) // value可以是普通日期 20170723
+  return moment.unix(value).format(formatString) // 这是时间戳转时间
+})
 
 Vue.config.productionTip = false
 
@@ -91,6 +115,10 @@ Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
 // 注册tree-table
 Vue.component('tree-table', ZkTable)
+
+// 挂载富文本编辑器
+Vue.use(VueQuillEditor /* { default global options } */)
+
 new Vue({
   router,
   store,

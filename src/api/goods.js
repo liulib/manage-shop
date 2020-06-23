@@ -52,6 +52,18 @@ const goods = {
   // 根据 ID删除参数
   removeAttributeById(id, attrId) {
     return axios.delete(`${base.dev}/categories/${id}/attributes/${attrId}`)
+  },
+  // 获取商品列表
+  getGoods(params) {
+    return axios.get(`${base.dev}/goods`, { params: params })
+  },
+  // 删除商品
+  removeGoods(goodId) {
+    return axios.delete(`${base.dev}/goods/${goodId}`)
+  },
+  // 添加商品
+  addGoods(params) {
+    return axios.post(`${base.dev}/goods`, params)
   }
 }
 
