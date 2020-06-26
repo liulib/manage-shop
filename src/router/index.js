@@ -1,17 +1,47 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Welcome from '../components/Welcome.vue'
-import Users from '../components/users/Users.vue'
-import Rights from '../components/power/Rights.vue'
-import Roles from '../components/power/Roles.vue'
-import Category from '../components/goods/Category.vue'
-import Params from '../components/goods/Params.vue'
-import Goods from '../components/goods/Goods.vue'
-import AddGood from '../components/goods/AddGood.vue'
-import Orders from '../components/orders/Orders.vue'
-import Reports from '../components/reports/Reports.vue'
+
+const Login = () =>
+  import(/* webpackChunkName: "Login_Home_Welcome" */ '../views/Login.vue')
+const Home = () =>
+  import(/* webpackChunkName: "Login_Home_Welcome" */ '../views/Home.vue')
+const Welcome = () =>
+  import(
+    /* webpackChunkName: "Login_Home_Welcome" */ '../components/Welcome.vue'
+  )
+
+const Users = () =>
+  import(/* webpackChunkName: "Users" */ '../components/users/Users.vue')
+
+const Rights = () =>
+  import(
+    /* webpackChunkName: "Rights_Roles" */ '../components/power/Rights.vue'
+  )
+const Roles = () =>
+  import(/* webpackChunkName: "Rights_Roles" */ '../components/power/Roles.vue')
+
+const Category = () =>
+  import(
+    /* webpackChunkName: "Category_Params_Goods" */ '../components/goods/Category.vue'
+  )
+const Params = () =>
+  import(
+    /* webpackChunkName: "Category_Params_Goods" */ '../components/goods/Params.vue'
+  )
+const Goods = () =>
+  import(
+    /* webpackChunkName: "Category_Params_Goods" */ '../components/goods/Goods.vue'
+  )
+const AddGood = () =>
+  import(
+    /* webpackChunkName: "Category_Params_Goods" */ '../components/goods/AddGood.vue'
+  )
+
+const Orders = () =>
+  import(/* webpackChunkName: "Orders" */ '../components/orders/Orders.vue')
+
+const Reports = () =>
+  import(/* webpackChunkName: "Reports" */ '../components/reports/Reports.vue')
 
 Vue.use(VueRouter)
 

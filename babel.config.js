@@ -14,6 +14,9 @@ module.exports = {
       }
     ],
     '@babel/plugin-transform-runtime',
-    ...productionPlugin
+    // 生产环境插件
+    ...productionPlugin,
+    // 懒加载插件
+    '@babel/plugin-syntax-dynamic-import'
   ]
 }

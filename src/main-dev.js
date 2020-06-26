@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
 // 导入api接口
 import api from './api/index'
 // 导入全局的样式
@@ -125,6 +124,5 @@ Vue.use(VueQuillEditor /* { default global options } */)
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')
