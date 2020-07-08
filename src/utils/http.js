@@ -8,6 +8,7 @@ import axios from 'axios'
 
 // 导入Nprogress
 import Nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 /**
  * 提示函数
