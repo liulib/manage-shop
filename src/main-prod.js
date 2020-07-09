@@ -14,8 +14,8 @@ import moment from 'moment'
 // 富文本编辑器相关
 import VueQuillEditor from 'vue-quill-editor'
 
-import { Message, MessageBox } from 'element-ui'
-Vue.use(Message).use(MessageBox)
+// import { Message, MessageBox } from 'element-ui'
+// Vue.use(Message).use(MessageBox)
 
 // 挂载全局过滤器
 Vue.filter('moment', function(value, formatString) {
@@ -28,10 +28,10 @@ Vue.config.productionTip = false
 
 // 将api挂载到vue的原型上
 Vue.prototype.$api = api
-// 将全局弹窗挂载到vue的原型上
-Vue.prototype.$message = Message
-// 挂载confirm到原型上
-Vue.prototype.$confirm = MessageBox.confirm
+// // 将全局弹窗挂载到vue的原型上
+// Vue.prototype.$message = Message
+// // 挂载confirm到原型上
+// Vue.prototype.$confirm = MessageBox.confirm
 // 注册tree-table
 Vue.component('tree-table', ZkTable)
 
