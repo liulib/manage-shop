@@ -86,7 +86,7 @@
     </el-dialog>
     <!-- 显示物流 信息对话框 -->
     <el-dialog title="物流信息" :visible.sync="logisticsDialogVisible" width="50%">
-      <!-- 内容主体区域 -->
+      <!-- 物流信息区域 -->
       <el-timeline>
         <el-timeline-item
           v-for="(item, index) in logistics"
@@ -94,12 +94,19 @@
           :timestamp="item.ftime"
         >{{item.context}}</el-timeline-item>
       </el-timeline>
+      <!-- 物流轨迹区域 -->
+      <div>
+        <h1>物流轨迹</h1>
+        <div id="container"></div>
+      </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
 import cityData from '../../utils/citydata'
+// 引入高德地图
+import AMap from 'AMap'
 export default {
   components: {},
   data() {
@@ -133,7 +140,33 @@ export default {
       },
       cityData: cityData,
       logistics: [],
-      logisticsDialogVisible: false
+      logisticsDialogVisible: false,
+      // 地图实例
+      map: null,
+      // 轨迹数据，接口没有这个数据，就直接使用假的了
+      lineArr: [
+        [116.478935, 39.997761],
+        [116.478939, 39.997825],
+        [116.478912, 39.998549],
+        [116.478912, 39.998549],
+        [116.478998, 39.998555],
+        [116.478998, 39.998555],
+        [116.479282, 39.99856],
+        [116.479658, 39.998528],
+        [116.480151, 39.998453],
+        [116.480784, 39.998302],
+        [116.480784, 39.998302],
+        [116.481149, 39.998184],
+        [116.481573, 39.997997],
+        [116.481863, 39.997846],
+        [116.482072, 39.997718],
+        [116.482362, 39.997718],
+        [116.483633, 39.998935],
+        [116.48367, 39.998968],
+        [116.484648, 39.999861]
+      ],
+      polyline: null,
+      marker: null
     }
   },
   computed: {},
@@ -209,6 +242,40 @@ export default {
     showLogisticsDialog() {
       this._getLogistics()
       this.logisticsDialogVisible = true
+      // 初始化地图 这里必须得用nextTick，否则第一次点击地图无法显示
+      this.$nextTick(() => {
+        this.initMap()
+      })
+    },
+    // 初始化地图，并绘制轨迹
+    initMap() {
+      // 初始化地图
+      this.map = new AMap.Map('container', {
+        resizeEnable: true // 是否监控地图容器尺寸变化
+        // zoom: 11, // 初始化地图层级
+        // center: [116.397428, 39.90923] // 初始化地图中心点
+      })
+      // 绘制轨迹
+      this.polyline = new AMap.Polyline({
+        map: this.map,
+        path: this.lineArr,
+        showDir: true,
+        strokeColor: '#28F', // 线颜色
+        strokeOpacity: 1, // 线透明度
+        strokeWeight: 6, // 线宽
+        strokeStyle: 'solid' // 线样式
+      })
+      // 绘制小车，显示目前位置
+      this.marker = new AMap.Marker({
+        map: this.map,
+        position: this.lineArr[this.lineArr.length - 1],
+        icon: 'https://webapi.amap.com/images/car.png',
+        offset: new AMap.Pixel(-26, -13),
+        autoRotation: true,
+        angle: -90
+      })
+      // 此方法会跳到划线的位置
+      this.map.setFitView()
     }
   },
   created() {
@@ -217,4 +284,8 @@ export default {
 }
 </script>
 <style lang='less' scoped>
+#container {
+  width: 100%;
+  height: 500px;
+}
 </style>

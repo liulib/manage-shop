@@ -241,7 +241,7 @@ export default {
     },
     // 添加角色
     _addRoles() {
-      this.$refs.addFormRef.validate(async valid => {
+      this.$refs.addFormRef.validate(async (valid) => {
         if (!valid) return
         try {
           const res = await this.$api.rights.addRoles(this.addForm)
@@ -278,7 +278,7 @@ export default {
     },
     // 编辑角色
     _editRolesInfo() {
-      this.$refs.editFormRef.validate(async valid => {
+      this.$refs.editFormRef.validate(async (valid) => {
         if (!valid) return
         try {
           const res = await this.$api.rights.editRolesInfo(
@@ -395,7 +395,7 @@ export default {
       if (!node.children) {
         return arr.push(node.id)
       }
-      node.children.forEach(item => {
+      node.children.forEach((item) => {
         this.getLeafData(item, arr)
       })
     }
